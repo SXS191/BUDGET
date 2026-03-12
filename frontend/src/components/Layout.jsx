@@ -183,21 +183,21 @@ const Layout = () => {
       </header>
 
       {/* Main Content */}
-      <main className="lg:ml-64 min-h-screen">
+      <main className="lg:ml-64 min-h-screen pb-24 lg:pb-0">
         <div className="p-4 md:p-6 lg:p-8">
           <Outlet />
         </div>
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="mobile-nav lg:hidden bg-card/95 backdrop-blur border-t border-border">
+      <nav className="mobile-nav lg:hidden bg-card/95 backdrop-blur border-t border-border safe-area-bottom">
         <div className="flex items-center justify-around px-2 py-2">
           {navItems.slice(0, 5).map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all ${
+                `flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all touch-target ${
                   isActive
                     ? "text-primary"
                     : "text-muted-foreground"

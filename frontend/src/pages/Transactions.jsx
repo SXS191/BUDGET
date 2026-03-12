@@ -208,15 +208,15 @@ const Transactions = () => {
   return (
     <div className="space-y-6" data-testid="transactions-page">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="font-heading text-3xl md:text-4xl font-bold">Transazioni</h1>
-          <p className="text-muted-foreground mt-1">Gestisci le tue entrate e uscite</p>
+          <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold">Transazioni</h1>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">Gestisci le tue entrate e uscite</p>
         </div>
 
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="btn-primary" data-testid="add-transaction-btn">
+            <Button className="btn-primary w-full sm:w-auto" data-testid="add-transaction-btn">
               <Plus className="w-4 h-4 mr-2" />
               Nuova Transazione
             </Button>
@@ -344,8 +344,8 @@ const Transactions = () => {
 
       {/* Filters */}
       <div className="card-bento">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="relative flex-1">
+        <div className="flex flex-col gap-3">
+          <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
               placeholder="Cerca transazioni..."
@@ -356,35 +356,37 @@ const Transactions = () => {
             />
           </div>
 
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-full md:w-48 input-focolare" data-testid="category-filter-select">
-              <Filter className="w-4 h-4 mr-2" />
-              <SelectValue placeholder="Categoria" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">Tutte</SelectItem>
-              {categories.map((cat) => (
-                <SelectItem key={cat.value} value={cat.value}>
-                  {cat.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="grid grid-cols-2 sm:flex gap-3">
+            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              <SelectTrigger className="input-focolare" data-testid="category-filter-select">
+                <Filter className="w-4 h-4 mr-2 flex-shrink-0" />
+                <SelectValue placeholder="Categoria" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Tutte</SelectItem>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-          <Select value={monthFilter} onValueChange={setMonthFilter}>
-            <SelectTrigger className="w-full md:w-48 input-focolare" data-testid="month-filter-select">
-              <CalendarIcon className="w-4 h-4 mr-2" />
-              <SelectValue placeholder="Mese" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">Tutti</SelectItem>
-              {months.map((m) => (
-                <SelectItem key={m.value} value={m.value}>
-                  {m.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <Select value={monthFilter} onValueChange={setMonthFilter}>
+              <SelectTrigger className="input-focolare" data-testid="month-filter-select">
+                <CalendarIcon className="w-4 h-4 mr-2 flex-shrink-0" />
+                <SelectValue placeholder="Mese" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Tutti</SelectItem>
+                {months.map((m) => (
+                  <SelectItem key={m.value} value={m.value}>
+                    {m.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
           {(categoryFilter || monthFilter) && (
             <Button
@@ -393,7 +395,7 @@ const Transactions = () => {
                 setCategoryFilter("");
                 setMonthFilter("");
               }}
-              className="text-muted-foreground"
+              className="text-muted-foreground w-full sm:w-auto"
               data-testid="clear-filters-btn"
             >
               <X className="w-4 h-4 mr-2" />

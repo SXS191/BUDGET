@@ -170,10 +170,10 @@ const Budgets = () => {
   return (
     <div className="space-y-6" data-testid="budgets-page">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="font-heading text-3xl md:text-4xl font-bold">Budget</h1>
-          <p className="text-muted-foreground mt-1">Imposta limiti di spesa per categoria</p>
+          <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold">Budget</h1>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">Imposta limiti di spesa per categoria</p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
@@ -193,7 +193,7 @@ const Budgets = () => {
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
               <Button
-                className="btn-primary"
+                className="btn-primary w-full sm:w-auto"
                 disabled={availableCategories.length === 0}
                 data-testid="add-budget-btn"
               >
@@ -255,27 +255,27 @@ const Budgets = () => {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
         <div className="card-bento" data-testid="total-budget-card">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-primary" />
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Budget Totale</p>
-              <p className="font-heading text-2xl font-bold">{formatCurrency(totalBudget)}</p>
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm text-muted-foreground">Budget Totale</p>
+              <p className="font-heading text-lg sm:text-2xl font-bold truncate">{formatCurrency(totalBudget)}</p>
             </div>
           </div>
         </div>
 
         <div className="card-bento" data-testid="total-spent-card">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center">
-              <ShoppingCart className="w-6 h-6 text-secondary" />
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0">
+              <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 text-secondary" />
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Speso</p>
-              <p className="font-heading text-2xl font-bold text-secondary">
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm text-muted-foreground">Speso</p>
+              <p className="font-heading text-lg sm:text-2xl font-bold text-secondary truncate">
                 {formatCurrency(totalSpent)}
               </p>
             </div>
@@ -283,22 +283,22 @@ const Budgets = () => {
         </div>
 
         <div className="card-bento" data-testid="remaining-card">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
                 totalRemaining >= 0 ? "bg-emerald-100 dark:bg-emerald-900/30" : "bg-red-100 dark:bg-red-900/30"
               }`}
             >
               {totalRemaining >= 0 ? (
-                <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+                <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
               ) : (
-                <AlertTriangle className="w-6 h-6 text-red-600" />
+                <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
               )}
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Rimanente</p>
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm text-muted-foreground">Rimanente</p>
               <p
-                className={`font-heading text-2xl font-bold ${
+                className={`font-heading text-lg sm:text-2xl font-bold truncate ${
                   totalRemaining >= 0 ? "text-emerald-600" : "text-red-600"
                 }`}
               >

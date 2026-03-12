@@ -72,32 +72,33 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   const [budgets, setBudgets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [hasFamily, setHasFamily] = useState(false);
+  const [hasFamily, setHasFamily] = useState(!!user?.family_id);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (user?.family_id) {
+      setHasFamily(true);
+      fetchData(user.family_id);
+    } else {
+      setHasFamily(false);
+      setLoading(false);
+    }
+  }, [user?.family_id]);
 
-  const fetchData = async () => {
+  const fetchData = async (familyId) => {
+    if (!familyId) return;
     setLoading(true);
     try {
-      // Check if user has family
-      if (user?.family_id) {
-        setHasFamily(true);
-        const [statsRes, monthlyRes, transRes, budgetsRes] = await Promise.all([
-          api.get("/stats/overview"),
-          api.get("/stats/monthly?months=6"),
-          api.get("/transactions?limit=5"),
-          api.get(`/budgets?month=${new Date().toISOString().slice(0, 7)}`),
-        ]);
+      const [statsRes, monthlyRes, transRes, budgetsRes] = await Promise.all([
+        api.get("/stats/overview"),
+        api.get("/stats/monthly?months=6"),
+        api.get("/transactions?limit=5"),
+        api.get(`/budgets?month=${new Date().toISOString().slice(0, 7)}`),
+      ]);
 
-        setStats(statsRes.data);
-        setMonthlyData(monthlyRes.data);
-        setTransactions(transRes.data);
-        setBudgets(budgetsRes.data);
-      } else {
-        setHasFamily(false);
-      }
+      setStats(statsRes.data);
+      setMonthlyData(monthlyRes.data);
+      setTransactions(transRes.data);
+      setBudgets(budgetsRes.data);
     } catch (error) {
       console.error("Error fetching data:", error);
       if (error.response?.status !== 404) {
@@ -111,10 +112,10 @@ const Dashboard = () => {
   const handleCreateFamily = async () => {
     try {
       const res = await api.post("/family", { name: `Famiglia ${user.name.split(" ")[0]}` });
-      updateUser({ ...user, family_id: res.data.id, role: "owner" });
+      const updatedUser = { ...user, family_id: res.data.id, role: "owner" };
+      updateUser(updatedUser);
       toast.success("Famiglia creata con successo!");
-      setHasFamily(true);
-      fetchData();
+      // useEffect will trigger fetchData when user.family_id updates
     } catch (error) {
       toast.error(error.response?.data?.detail || "Errore nella creazione della famiglia");
     }
@@ -163,30 +164,30 @@ const Dashboard = () => {
   return (
     <div className="space-y-6" data-testid="dashboard-page">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="font-heading text-3xl md:text-4xl font-bold">
+          <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold">
             Ciao, {user?.name?.split(" ")[0]}
           </h1>
-          <p className="text-muted-foreground mt-1">Ecco il riepilogo del tuo budget familiare</p>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">Ecco il riepilogo del tuo budget familiare</p>
         </div>
-        <Button onClick={fetchData} variant="outline" className="btn-secondary" data-testid="refresh-btn">
+        <Button onClick={() => fetchData(user?.family_id)} variant="outline" className="btn-secondary w-full sm:w-auto sm:self-start" data-testid="refresh-btn">
           <RefreshCw className="w-4 h-4 mr-2" />
           Aggiorna
         </Button>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {/* Total Balance */}
         <div className="card-bento" data-testid="balance-card">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Wallet className="w-6 h-6 text-primary" />
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Saldo Totale</p>
-              <p className="font-heading text-2xl font-bold">
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm text-muted-foreground">Saldo Totale</p>
+              <p className="font-heading text-lg sm:text-2xl font-bold truncate">
                 {formatCurrency(stats?.total_balance || 0)}
               </p>
             </div>
@@ -195,13 +196,13 @@ const Dashboard = () => {
 
         {/* Monthly Income */}
         <div className="card-bento" data-testid="income-card">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-emerald-600" />
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0">
+              <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Entrate Mese</p>
-              <p className="font-heading text-2xl font-bold text-emerald-600">
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm text-muted-foreground">Entrate Mese</p>
+              <p className="font-heading text-lg sm:text-2xl font-bold text-emerald-600 truncate">
                 +{formatCurrency(stats?.monthly_income || 0)}
               </p>
             </div>
@@ -209,14 +210,14 @@ const Dashboard = () => {
         </div>
 
         {/* Monthly Expenses */}
-        <div className="card-bento" data-testid="expenses-card">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-              <TrendingDown className="w-6 h-6 text-red-600" />
+        <div className="card-bento sm:col-span-2 md:col-span-1" data-testid="expenses-card">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
+              <TrendingDown className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Uscite Mese</p>
-              <p className="font-heading text-2xl font-bold text-red-600">
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm text-muted-foreground">Uscite Mese</p>
+              <p className="font-heading text-lg sm:text-2xl font-bold text-red-600 truncate">
                 -{formatCurrency(stats?.monthly_expenses || 0)}
               </p>
             </div>

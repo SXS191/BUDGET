@@ -46,18 +46,28 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle 401 errors
+// Handle 401 errors - but not during initial verification
+let isVerifyingToken = false;
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("focolare_token");
-      localStorage.removeItem("focolare_user");
-      window.location.href = "/login";
+    // Only redirect to login on 401 if not during token verification
+    if (error.response?.status === 401 && !isVerifyingToken) {
+      // Check if this is a protected route request (not login/register)
+      const isAuthRoute = error.config?.url?.includes('/auth/login') || 
+                          error.config?.url?.includes('/auth/register');
+      if (!isAuthRoute) {
+        localStorage.removeItem("focolare_token");
+        localStorage.removeItem("focolare_user");
+        window.location.href = "/login";
+      }
     }
     return Promise.reject(error);
   }
 );
+
+export const setVerifyingToken = (value) => { isVerifyingToken = value; };
 
 // Auth Provider
 const AuthProvider = ({ children }) => {
@@ -69,19 +79,29 @@ const AuthProvider = ({ children }) => {
     const savedUser = localStorage.getItem("focolare_user");
     
     if (token && savedUser) {
-      setUser(JSON.parse(savedUser));
-      // Verify token is still valid
-      api.get("/auth/me")
-        .then((res) => {
-          setUser(res.data);
-          localStorage.setItem("focolare_user", JSON.stringify(res.data));
-        })
-        .catch(() => {
-          localStorage.removeItem("focolare_token");
-          localStorage.removeItem("focolare_user");
-          setUser(null);
-        })
-        .finally(() => setLoading(false));
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        setUser(parsedUser);
+        setLoading(false);
+        
+        // Verify token in background - don't block UI
+        api.get("/auth/me")
+          .then((res) => {
+            setUser(res.data);
+            localStorage.setItem("focolare_user", JSON.stringify(res.data));
+          })
+          .catch((err) => {
+            // Only clear session if it's a real 401, not network error
+            if (err.response?.status === 401) {
+              localStorage.removeItem("focolare_token");
+              localStorage.removeItem("focolare_user");
+              setUser(null);
+            }
+          });
+      } catch (e) {
+        localStorage.removeItem("focolare_user");
+        setLoading(false);
+      }
     } else {
       setLoading(false);
     }

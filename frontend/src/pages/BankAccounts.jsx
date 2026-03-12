@@ -161,15 +161,15 @@ const BankAccounts = () => {
   return (
     <div className="space-y-6" data-testid="bank-accounts-page">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="font-heading text-3xl md:text-4xl font-bold">Conti Bancari</h1>
-          <p className="text-muted-foreground mt-1">Collega e gestisci i tuoi conti</p>
+          <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold">Conti Bancari</h1>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">Collega e gestisci i tuoi conti</p>
         </div>
 
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="btn-primary" data-testid="add-account-btn">
+            <Button className="btn-primary w-full sm:w-auto" data-testid="add-account-btn">
               <Plus className="w-4 h-4 mr-2" />
               Aggiungi Conto
             </Button>
