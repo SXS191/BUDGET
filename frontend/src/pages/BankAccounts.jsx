@@ -63,6 +63,7 @@ const banks = [
   "BPER Banca",
   "Poste Italiane",
   "Fineco",
+  "ING",
   "N26",
   "Revolut",
   "Hype",

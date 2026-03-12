@@ -92,7 +92,7 @@ class BankAccountResponse(BaseModel):
     created_at: str
 
 class TransactionCreate(BaseModel):
-    account_id: str
+    account_id: Optional[str] = None
     amount: float
     description: str
     category: str
@@ -101,7 +101,7 @@ class TransactionCreate(BaseModel):
 
 class TransactionResponse(BaseModel):
     id: str
-    account_id: str
+    account_id: Optional[str] = None
     family_id: str
     user_id: str
     amount: float

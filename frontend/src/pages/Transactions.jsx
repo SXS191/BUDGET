@@ -269,7 +269,7 @@ const Transactions = () => {
               <div className="space-y-2">
                 <Label>Categoria *</Label>
                 <Select
-                  value={formData.category}
+                  value={formData.category || undefined}
                   onValueChange={(v) => setFormData({ ...formData, category: v })}
                 >
                   <SelectTrigger className="input-focolare" data-testid="transaction-category-select">
@@ -294,7 +294,7 @@ const Transactions = () => {
               <div className="space-y-2">
                 <Label>Conto (opzionale)</Label>
                 <Select
-                  value={formData.account_id}
+                  value={formData.account_id || undefined}
                   onValueChange={(v) => setFormData({ ...formData, account_id: v })}
                 >
                   <SelectTrigger className="input-focolare" data-testid="transaction-account-select">
@@ -357,13 +357,13 @@ const Transactions = () => {
           </div>
 
           <div className="grid grid-cols-2 sm:flex gap-3">
-            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+            <Select value={categoryFilter || "all"} onValueChange={(v) => setCategoryFilter(v === "all" ? "" : v)}>
               <SelectTrigger className="input-focolare" data-testid="category-filter-select">
                 <Filter className="w-4 h-4 mr-2 flex-shrink-0" />
                 <SelectValue placeholder="Categoria" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Tutte</SelectItem>
+                <SelectItem value="all">Tutte</SelectItem>
                 {categories.map((cat) => (
                   <SelectItem key={cat.value} value={cat.value}>
                     {cat.label}
@@ -372,13 +372,13 @@ const Transactions = () => {
               </SelectContent>
             </Select>
 
-            <Select value={monthFilter} onValueChange={setMonthFilter}>
+            <Select value={monthFilter || "all"} onValueChange={(v) => setMonthFilter(v === "all" ? "" : v)}>
               <SelectTrigger className="input-focolare" data-testid="month-filter-select">
                 <CalendarIcon className="w-4 h-4 mr-2 flex-shrink-0" />
                 <SelectValue placeholder="Mese" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Tutti</SelectItem>
+                <SelectItem value="all">Tutti</SelectItem>
                 {months.map((m) => (
                   <SelectItem key={m.value} value={m.value}>
                     {m.label}
