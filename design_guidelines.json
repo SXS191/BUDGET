@@ -1,0 +1,135 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "Focolare (The Hearth)",
+      "archetype": "Organic & Earthy",
+      "vibe": "Warm, Grounded, Trusted, Tactile",
+      "description": "A family budget app that feels like a kitchen table conversation, not a bank audit. Replaces cold spreadsheets with warm, paper-like textures and natural tones."
+    },
+    "typography": {
+      "font_family": {
+        "headings": "Outfit, sans-serif",
+        "body": "Manrope, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "scale": {
+        "h1": "text-5xl md:text-6xl font-bold tracking-tight",
+        "h2": "text-4xl md:text-5xl font-semibold tracking-tight",
+        "h3": "text-2xl md:text-3xl font-semibold",
+        "body_lg": "text-lg leading-relaxed",
+        "body": "text-base leading-relaxed text-muted-foreground",
+        "caption": "text-sm text-muted-foreground uppercase tracking-wider"
+      },
+      "imports": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+      ]
+    },
+    "colors": {
+      "palette": {
+        "primary": {
+          "DEFAULT": "#14532D",
+          "foreground": "#F2FCE2"
+        },
+        "secondary": {
+          "DEFAULT": "#EA580C",
+          "foreground": "#FFF7ED"
+        },
+        "background": {
+          "light": "#F5F5F4",
+          "dark": "#1C1917"
+        },
+        "surface": {
+          "light": "#FFFFFF",
+          "dark": "#292524"
+        },
+        "muted": {
+          "DEFAULT": "#E7E5E4",
+          "foreground": "#57534E"
+        },
+        "accent": {
+          "DEFAULT": "#FDE047",
+          "foreground": "#422006"
+        }
+      },
+      "charts": {
+        "color_1": "#14532D", 
+        "color_2": "#EA580C",
+        "color_3": "#EAB308",
+        "color_4": "#78716C",
+        "color_5": "#064E3B"
+      },
+      "gradients": {
+        "subtle_warmth": "bg-gradient-to-br from-stone-50 to-stone-100 dark:from-stone-950 dark:to-stone-900",
+        "emerald_glow": "bg-gradient-to-b from-emerald-800 to-emerald-950"
+      }
+    },
+    "visual_enhancers": {
+      "radius": "rounded-2xl",
+      "shadows": {
+        "card": "shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+        "floating": "shadow-[0_12px_24px_rgba(20,83,45,0.08)]",
+        "inner": "shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]"
+      },
+      "borders": "border border-stone-200 dark:border-stone-800",
+      "textures": {
+        "noise": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E\")"
+      }
+    },
+    "layout_strategies": {
+      "dashboard_grid": "grid grid-cols-1 md:grid-cols-12 gap-6 p-6 md:p-8",
+      "card_bento": "bg-white dark:bg-stone-900 rounded-2xl p-6 relative overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1 duration-300",
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    },
+    "motion": {
+      "default_transition": "transition-all duration-300 ease-out",
+      "hover_lift": "hover:-translate-y-1 hover:shadow-lg",
+      "micro_interactions": "active:scale-95 duration-100"
+    }
+  },
+  "component_guidelines": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-3 font-semibold shadow-lg shadow-primary/20",
+      "secondary": "bg-stone-100 text-stone-900 hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-100 rounded-full px-6 py-2 font-medium",
+      "ghost": "hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-400 rounded-lg px-4 py-2"
+    },
+    "inputs": {
+      "default": "bg-stone-50 dark:bg-stone-900 border-stone-200 dark:border-stone-800 focus:ring-2 focus:ring-primary/20 focus:border-primary rounded-xl px-4 py-3"
+    },
+    "cards": {
+      "style": "bg-white dark:bg-stone-900 border border-stone-100 dark:border-stone-800 shadow-sm rounded-2xl"
+    },
+    "charts": {
+      "library": "recharts",
+      "style": "minimalist, hide grid lines when possible, use custom tooltips with rounded-lg and shadow-xl"
+    }
+  },
+  "image_assets": {
+    "hero_family": {
+      "url": "https://images.unsplash.com/photo-1711261727644-cb7d5f163a97?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGl0YWxpYW4lMjBmYW1pbHklMjBjb29raW5nJTIwa2l0Y2hlbnxlbnwwfHx8fDE3NzMzMzE0NDF8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Italian family cooking together in a warm kitchen",
+      "usage": "Landing page hero section, right side, masked with organic shape"
+    },
+    "promo_desk": {
+      "url": "https://images.unsplash.com/photo-1764588037085-a78240016f8b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwcGxhbnQlMjBhZXN0aGV0aWMlMjBob21lJTIwb2ZmaWNlJTIwZGVza3xlbnwwfHx8fDE3NzMzMzE0NDF8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Minimalist calm desk setup",
+      "usage": "Feature section background or side image for 'Organize your finances' block"
+    }
+  },
+  "universal_guidelines": [
+    "Do not use generic 'blue' for finance. Stick to the Earth/Forest palette.",
+    "Use 'sonner' for all toast notifications.",
+    "All interactive elements must have `data-testid` attributes.",
+    "Mobile-first: Always design for mobile grid first, then expand.",
+    "No full-screen gradients. Use subtle noise textures or solid organic colors.",
+    "Typography: Use 'Outfit' for all Headings, 'Manrope' for all body text/numbers.",
+    "Spacing: Use `p-6` or `p-8` inside cards. Don't crowd the data."
+  ],
+  "instructions_to_main_agent": {
+    "setup": "Install `lucide-react`, `recharts`, `framer-motion`, `sonner`, `clsx`, `tailwind-merge`.",
+    "step_1": "Configure Tailwind theme with the `colors` and `borderRadius` defined above.",
+    "step_2": "Create the `Layout` component with the `Manrope` and `Outfit` font imports.",
+    "step_3": "Build the Dashboard using the Bento Grid strategy (Section 2 in guidelines).",
+    "step_4": "Implement Charts using Recharts with the custom color palette.",
+    "step_5": "Ensure all 'Plaid' interactions use a secure-looking but friendly modal."
+  }
+}
