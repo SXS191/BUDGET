@@ -1,34 +1,99 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Focolare App Styles */
+
+/* Category colors */
+.category-alimentari { --category-color: #14532D; }
+.category-trasporti { --category-color: #EA580C; }
+.category-casa { --category-color: #EAB308; }
+.category-utenze { --category-color: #78716C; }
+.category-salute { --category-color: #DC2626; }
+.category-intrattenimento { --category-color: #7C3AED; }
+.category-ristoranti { --category-color: #F97316; }
+.category-shopping { --category-color: #EC4899; }
+.category-istruzione { --category-color: #0EA5E9; }
+.category-viaggi { --category-color: #06B6D4; }
+.category-sport { --category-color: #10B981; }
+.category-abbonamenti { --category-color: #6366F1; }
+.category-stipendio { --category-color: #22C55E; }
+.category-bonus { --category-color: #F59E0B; }
+.category-altro { --category-color: #64748B; }
+
+/* Mobile bottom nav */
+.mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
+/* Chart tooltip */
+.recharts-tooltip-wrapper {
+    outline: none !important;
+}
+
+.custom-tooltip {
+    @apply bg-white dark:bg-stone-900 rounded-xl shadow-xl p-4 border border-stone-200 dark:border-stone-800;
+}
+
+/* Loading skeleton pulse */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
     }
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.skeleton-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.App-link {
-    color: #61dafb;
+/* Transaction item hover */
+.transaction-item {
+    @apply transition-all duration-200;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.transaction-item:hover {
+    @apply bg-stone-50 dark:bg-stone-800/50;
+}
+
+/* Budget progress bar */
+.budget-progress {
+    @apply h-2 rounded-full bg-stone-200 dark:bg-stone-800 overflow-hidden;
+}
+
+.budget-progress-bar {
+    @apply h-full rounded-full transition-all duration-500 ease-out;
+}
+
+/* Amount formatting */
+.amount-positive {
+    @apply text-emerald-600 dark:text-emerald-400;
+}
+
+.amount-negative {
+    @apply text-red-600 dark:text-red-400;
+}
+
+/* Page transitions */
+.page-enter {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.page-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+    opacity: 1;
+}
+
+.page-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
 }
