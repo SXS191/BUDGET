@@ -231,6 +231,7 @@ const Settings = () => {
       <div className="text-center text-sm text-muted-foreground py-4">
         <p>Focolare v1.0.0</p>
         <p className="mt-1">Gestione Budget Familiare</p>
+        <p className="mt-2 font-medium">Creato da Cristian D'Alessandro</p>
       </div>
     </div>
   );

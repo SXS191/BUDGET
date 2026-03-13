@@ -136,6 +136,7 @@ const Login = () => {
       {/* Footer */}
       <footer className="p-6 text-center text-sm text-muted-foreground">
         <p>Focolare - Gestione Budget Familiare</p>
+        <p className="mt-1">Creato da <strong>Cristian D'Alessandro</strong></p>
       </footer>
     </div>
   );
